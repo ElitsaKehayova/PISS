@@ -55,6 +55,12 @@ export class SearchBar extends Component {
   onBlur = () => {
     this.setState({suggestions: []});
   }
+  clearSearch =()=> {
+    this.setState({
+        searchTerm: '',
+        suggestions: []
+    });
+  }
 
   render() {
     return (
@@ -63,7 +69,7 @@ export class SearchBar extends Component {
           <span className="input-group">
             <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className="form-control" onChange={this.handleChange} onBlur={this.onBlur} onKeyPress={this.handleKeyPress}/>
             <span className="input-group-btn">
-              <button type="button" className="btn btn-default">BE</button>
+              <button type="button" className="btn btn-default" onClick={this.clearSearch}>X</button>
             </span>
             <span className="input-group-btn">
               <button type="button" className="btn btn-default">AF</button>

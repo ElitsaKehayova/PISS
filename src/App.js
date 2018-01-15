@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Probe } from './components/probe'
+import { SearchBar } from './components/search-bar/search-bar'
 import logo from './logo.svg';
 import './App.scss';
 
@@ -15,7 +15,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         {/* This is simple new Component */}
-        <Probe/>
+        <SearchBar/>
       </div>
     );
   }

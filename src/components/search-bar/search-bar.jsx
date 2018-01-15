@@ -55,12 +55,17 @@ export class SearchBar extends Component {
   onBlur = () => {
     this.setState({suggestions: []});
   }
+  
   clearSearch =()=> {
     this.setState({
         searchTerm: '',
         suggestions: []
     });
   }
+  handleSearch=()=>{
+    
+  }
+
 
   render() {
     return (
@@ -72,7 +77,7 @@ export class SearchBar extends Component {
               <button type="button" className="btn btn-default" onClick={this.clearSearch}>X</button>
             </span>
             <span className="input-group-btn">
-              <button type="button" className="btn btn-default">AF</button>
+              <button type="button" className="btn btn-default" onClick={this.handleSearch}>AF</button>
             </span>
           </span>
         </div>

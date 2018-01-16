@@ -56,34 +56,30 @@ export class SearchBar extends Component {
     this.setState({suggestions: []});
   }
   
-  clearSearch =()=> {
+  clearSearch = () => {
     this.setState({
         searchTerm: '',
         suggestions: []
     });
   }
-  handleSearch=()=>{
-    
-  }
-
 
   render() {
     return (
-      <div className='container'>
-        <div className="no-padding no-margin form-group">
+      <div className='container search-bar--container'>
+        <div className="form-group search-bar-field">
           <span className="input-group">
-            <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className="form-control" onChange={this.handleChange} onBlur={this.onBlur} onKeyPress={this.handleKeyPress}/>
+            <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className="form-control search-bar-input" onChange={this.handleChange} onBlur={this.onBlur} onKeyPress={this.handleKeyPress}/>
+            {this.state.searchTerm.length > 0 ? (<span className="input-group-btn">
+              <button type="button" className="search-bar-button-clear" onClick={this.clearSearch}>X</button>
+            </span>) : null}
             <span className="input-group-btn">
-              <button type="button" className="btn btn-default" onClick={this.clearSearch}>X</button>
-            </span>
-            <span className="input-group-btn">
-              <button type="button" className="btn btn-default" onClick={this.handleSearch}>AF</button>
+              <button type="button" className="search-bar-button-search" onClick={this.handleSearch}>AF</button>
             </span>
           </span>
         </div>
-        <div className='search-bar-suggestions--container'>
+        {this.state.suggestions.length != 0 ? (<div className='search-bar-suggestions--container'>
           {this.suggestionsRenderer()}
-        </div>
+        </div>) : null}
       </div>
     );
   }

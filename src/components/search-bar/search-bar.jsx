@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
-import styles from './search-bar.scss';
+import './search-bar.scss';
 
 export class SearchBar extends Component {
 
@@ -44,7 +44,7 @@ export class SearchBar extends Component {
   suggestionsRenderer = () => {
     return this.state.suggestions.map(suggestion => {
       return (
-        <span key={suggestion} className={styles.searchBarSuggestionsItem}>
+        <span key={suggestion} className='search-bar-suggestions-item'>
           <strong>{this.state.searchTerm}</strong>
           <span>{suggestion.substr(this.state.searchTerm.length)}</span>
         </span>
@@ -65,19 +65,19 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <div className={'container ' + styles.searchBarContainer}>
-        <div className={"form-group " + styles.searchBarField}>
+      <div className='container search-bar-container'>
+        <div className='form-group search-bar-field'>
           <span className="input-group">
-            <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className={styles.formControl + ' ' + styles.searchBarInput} onChange={this.handleChange} onBlur={this.onBlur} onKeyPress={this.handleKeyPress}/>
+            <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className='formControl search-bar-input' onChange={this.handleChange} onBlur={this.onBlur} onKeyPress={this.handleKeyPress}/>
             {this.state.searchTerm.length > 0 ? (<span className="input-group-btn">
-              <button type="button" className={styles.searchBarButtonClear} onClick={this.clearSearch}>X</button>
+              <button type="button" className='search-bar-button-clear' onClick={this.clearSearch}>X</button>
             </span>) : null}
             <span className="input-group-btn">
-              <button type="button" className={styles.searchBarButtonSearch} onClick={this.handleSearch}>AF</button>
+              <button type="button" className='search-bar-button-search' onClick={this.handleSearch}>AF</button>
             </span>
           </span>
         </div>
-        {this.state.suggestions.length != 0 ? (<div className={styles.searchBarSuggestionsContainer}>
+        {this.state.suggestions.length != 0 ? (<div className='search-bar-suggestions-container'>
           {this.suggestionsRenderer()}
         </div>) : null}
       </div>

@@ -29,19 +29,12 @@ module.exports = env => {
           }
         },
         {
-          test: /\.css$/,
-          loaders: [
-            'style-loader',
-            'css-loader'
-          ]
-        },
-        {
-          test: /\.scss$/,
+          test: /\.css|\.scss$/,
           use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
             fallback: 'style-loader',
             // Minified version of loaders set-up:
-            use: ifProd('css-loader?modules&importLoader=2&sourceMap&camelCase&localIdentName=[hash:base64:5]!sass-loader?sourceMap=true',
-                        'css-loader?modules&importLoader=2&sourceMap&camelCase&localIdentName=[local]!sass-loader?sourceMap=true')
+            use: ifProd('css-loader?sourceMap&minimize!fast-sass-loader',
+                        'css-loader?sourceMap!fast-sass-loader')
           }))
         },
         {
@@ -65,7 +58,10 @@ module.exports = env => {
     ]),
     devServer: {
       contentBase: publicPath,
-      noInfo: true
+      noInfo: true,
+      historyApiFallback: {
+        index: 'index.html'
+      }
     },
     devtool: 'source-map'
   }

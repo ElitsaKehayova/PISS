@@ -2,15 +2,20 @@ Steps to init the project:
 
 1) Clone the repo:
 ```
-    git clone https://github.com/ElitsaKehayova/outdors-sports
+git clone https://github.com/ElitsaKehayova/outdors-sports
 ```
 
-2) Install dependencies
+2) Redirect to project directory
 ```
-    npm i
+cd outdoors-sports
 ```
 
-3) Start the project
+3) Install dependencies
 ```
-    npm start
+npm install
+```
+
+4) Start the project
+```
+npm start
 ```

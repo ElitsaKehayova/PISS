@@ -8,7 +8,7 @@ export class Calendar extends React.Component {
         this.state ={
             startDate: moment(),
             endDate: moment().add(7, 'days'),
-            focusedInput: 'start_date'
+            focusedInput: 'startDate'
         }
     }
 
@@ -16,9 +16,9 @@ export class Calendar extends React.Component {
         return (
             <DateRangePicker
             startDate={this.state.startDate}
-            startDateId="start_date"
+            startDateId="startDate"
             endDate={this.state.endDate}
-            endDateId="end_date"
+            endDateId="endDate"
             numberOfMonths={1}
             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
             focusedInput={this.state.focusedInput}

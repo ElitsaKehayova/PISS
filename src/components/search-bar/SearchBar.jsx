@@ -21,16 +21,16 @@ export class SearchBar extends Component {
     if (input.target.value == 0 && this.state.suggestions.length > 0) {
       this.setState({suggestions: []});
     } else {
-      let words = ['abasement',
-        'abhor',
-        'abrasive',
-        'abrogate',
-        'absolution',
-        'abstain',
-        'abstemious',
-        'abstruse']
+      let words = [{name:'abasement',mountain:'rila'},
+        {name:'abhor',mountain:'rila'},
+        {name:'abrasive',mountain:'rila'},
+        {name:'abrogate',mountain:'rila'},
+        {name:'absolution',mountain:'vitosha'},
+        {name:'abstain',mountain:'pirin'},
+        {name:'abstemious',mountain:'vitosha'},
+        {name:'abstruse',mountain:'rila'}]
       this.setState({
-        suggestions: words.filter(word => word.startsWith(input.target.value))
+        suggestions: words.filter((word) => {return word.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.mountain.toLowerCase().startsWith(input.target.value.toLowerCase())})
       });
     }
   };
@@ -42,11 +42,11 @@ export class SearchBar extends Component {
   }
 
   suggestionsRenderer = () => {
-    return this.state.suggestions.map(suggestion => {
+   return this.state.suggestions.map(suggestion => {
       return (
-        <span key={suggestion} className='search-bar-suggestions-item'>
-          <strong>{this.state.searchTerm}</strong>
-          <span>{suggestion.substr(this.state.searchTerm.length)}</span>
+        <span key={suggestion.name} className='search-bar-suggestions-item'>
+         
+          <span><div>{suggestion.name},{suggestion.mountain}</div></span>
         </span>
       );
     });

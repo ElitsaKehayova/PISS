@@ -14,9 +14,9 @@ class App extends Component {
       <div className='App'>
         <h1  className='App-name'>Outdoors Sports</h1>
         <SearchBar className='search-bar'/>
-        <Card/>
-        <Calendar/>
-        <Map/>
+         <Calendar/>
+         <Card/>  
+         <Map />     
       </div>
     );
   }

@@ -1,106 +1,89 @@
-import React, { Component } from 'react';
-import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
+import React from 'react';
 import './SearchBar.scss';
 
-export class SearchBar extends Component {
-
+export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       searchTerm: '',
-      suggestions: [],
-      dataSet:[]
+      suggestions: []
     };
   }
-  componentDidMount(){
-    fetch('http://173.212.226.173:8080/OutDoorSportBE/webresources/controller/searchInfo')
-    .then((res)=>res.json())
-    .then((data)=>{
-      this.setState({
-        dataSet:data
-      })
-    })
-  }
-  handleChange = (input) => {
 
+  handleChange = input => {
+    let vm = this;
     //HandleChange method does not apply changes to the input so we need to do it mannualy
     this.setState({ searchTerm: input.target.value });
 
-    if (input.target.value == 0 && this.state.suggestions.length > 0) {
-      this.setState({suggestions: []});
+    if (input.target.value.length === 0 && this.state.suggestions.length > 0) {
+      this.setState({ suggestions: [] });
     } else {
-      let words = this.state.dataSet;
-      this.setState({
-        suggestions: words.filter((word) => {return word.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.regionId.mountainId.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.sport.toLowerCase().startsWith(input.target.value.toLowerCase())})
-      });
+      this.props.searchHandler(input.target.value);
     }
   };
 
-  handleKeyPress = (e) => {
+  handleKeyPress = e => {
     if (e.key === 'Enter') {
-      console.log('The user just cick Enter');
+      this.setState({ suggestions: [] });
+      this.handleSearch();
     }
   }
- 
+
+  selectItem = selected => {
+    this.setState({ searchTerm: selected, suggestions: [] });
+    setTimeout(() => {
+      this.handleSearch();
+    }, 0);
+  }
+
   suggestionsRenderer = () => {
-   return this.state.suggestions.map(suggestion => {
+    return this.state.suggestions.map(suggestion => {
       return (
-        <span key={suggestion.name} className='search-bar-suggestions-item'>
-         
-          <span><div  onClick={this.handleOnClick.bind(this,`${suggestion.name},${suggestion.regionId.mountainId.name},${suggestion.sport}`)}>{suggestion.name},{suggestion.regionId.mountainId.name},{suggestion.sport}</div></span>
+        <span key={suggestion + Math.random()}
+          className='search-bar-suggestions-item'
+          onClick={this.selectItem.bind(this, suggestion)}>
+          <span>{this.state.searchTerm}</span>
         </span>
       );
-    },this);
+    });
   };
 
+  onBlur = e => {
+    let currentTarget = e.currentTarget;
+
+    setTimeout(() => {
+      if (!currentTarget.contains(document.activeElement)) {
+        this.setState({ suggestions: [] });
+      }
+    }, 0);
+  }
+
   handleSearch = () => {
-
-    let queryString = new URLSearchParams();
-    let params = {
-      id: this.state.searchId || 1,
-      type: this.state.searchType || 'mountain',
-      sport: this.state.searchSport || 'ski'
-    };
-    for (let key in params) {
-      queryString.append(key, params[key]);
-    }
-
-    fetch('http://173.212.226.173:8080/OutDoorSportBE/webresources/controller/search?' + queryString.toString())
-    .then((res)=>res.json())
-    .then((data)=>{
-      this.setState({results: data})
-    })
+    this.props.searchHandler(this.state.searchTerm);
   }
 
-  handleOnClick = newVal => {
-      this.setState({
-          searchTerm: newVal,
-          suggestions: []
-      });
-  }
   clearSearch = () => {
     this.setState({
-        searchTerm: '',
-        suggestions: []
+      searchTerm: '',
+      suggestions: []
     });
   }
- 
+
   render() {
     return (
-      <div className='container search-bar-container'>
-        <div className='form-group search-bar-field'>
+      <div className='search-bar-container' tabIndex="1" onBlur={this.onBlur}>
+        <div className="form-group search-bar-field">
           <span className="input-group">
-            <input type="text" value={this.state.searchTerm} placeholder="Enter mountain, area or specific place" className='formControl search-bar-input' onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
-            {this.state.searchTerm.length > 0 ? (<span className="input-group-btn">
-              <button type="button" className='search-bar-button-clear' onClick={this.clearSearch}>X</button>
-            </span>) : null}
             <span className="input-group-btn">
-              <button type="button" className='search-bar-button-search' onClick={this.handleSearch}>AF</button>
+              <button type="button" className='search-bar-button-search' onClick={this.handleSearch}></button>
             </span>
+            <input type="text" value={this.state.searchTerm} placeholder={this.props.placeholder} className='formControl search-bar-input' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            {this.state.searchTerm.length > 0 ? (<span className="input-group-btn">
+              <button type="button" className='search-bar-button-clear' onClick={this.clearSearch}></button>
+            </span>) : null}
           </span>
         </div>
-        {this.state.suggestions.length != 0 ? (<div className='search-bar-suggestions-container' >
+        {this.state.suggestions.length !== 0 ? (<div className='search-bar-suggestions-container'>
           {this.suggestionsRenderer()}
         </div>) : null}
       </div>

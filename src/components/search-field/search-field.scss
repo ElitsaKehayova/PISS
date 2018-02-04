@@ -1,0 +1,38 @@
+.search-field {
+  &-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  &-input {
+    flex: 1;
+  }
+  &-dropdown {
+    min-width: 120px;
+    display: flex;
+    align-items: left;
+
+    .dropdown {
+      width: 100px;
+
+      .dropdown-toggle {
+        width: 100%;
+        height: 52px;
+
+        &.btn-default:focus, .btn-default.focus {
+          color: #333;
+          background-color: #fff;
+          border-color: #ccc;
+        }
+      }
+    }
+  }
+}
+
+.DateInput {
+  width: 100px !important;
+}
+
+.DateInput_input {
+  padding: 11px 7px !important;
+}

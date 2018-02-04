@@ -11,7 +11,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
   </GoogleMap>
   ))
 
-export class Map extends Component {
+export default class Map extends Component {
 
   constructor(props) {
     super(props);

@@ -1,0 +1,43 @@
+.place {
+  &-card {
+    &-container {
+      margin: 0 auto 30px;
+      position: relative;
+      -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+      -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+
+      a:hover {
+        color: #333333;
+        text-decoration: none;
+      }
+    }
+    &-image {
+      width: 160px;
+      height: 160px;
+    }
+    &-content {
+      padding: 10px;
+      color: #333333;
+    }
+    &-name {
+      margin: 0 0 20px;
+    }
+    &-description {
+      color: #333333;
+      font-size: 18px;
+
+      &:hover {
+        color: #333333;
+      }
+    }
+    &-description-sm {
+      font-weight: 300;
+    }
+    &-show-map-button {
+      padding-top: 10px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

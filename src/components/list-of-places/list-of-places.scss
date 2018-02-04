@@ -1,0 +1,30 @@
+.list-of-places {
+  &-container {
+    padding: 40px 0;
+  }
+}
+
+.panel-default {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 40px;
+}
+
+.panel-default > .panel-heading {
+  height: 160px;
+  padding: 0px;
+  text-align: left;
+  background: transparent;
+  background-color: transparent;
+  border: none;
+}
+
+.panel-default > .panel-collapse {
+  padding: 20px;
+  text-align: left;
+  background: transparent;
+  -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}

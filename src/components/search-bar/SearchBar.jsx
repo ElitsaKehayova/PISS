@@ -9,10 +9,19 @@ export class SearchBar extends Component {
 
     this.state = {
       searchTerm: '',
-      suggestions: []
+      suggestions: [],
+      dataSet:[]
     };
   }
-
+  componentDidMount(){
+    fetch('http://173.212.226.173:8080/OutDoorSportBE/webresources/controller/searchInfo')
+    .then((res)=>res.json())
+    .then((data)=>{
+      this.setState({
+        dataSet:data
+      })
+    })
+  }
   handleChange = (input) => {
 
     //HandleChange method does not apply changes to the input so we need to do it mannualy
@@ -21,16 +30,9 @@ export class SearchBar extends Component {
     if (input.target.value == 0 && this.state.suggestions.length > 0) {
       this.setState({suggestions: []});
     } else {
-      let words = [{name:'abasement',mountain:'rila',sport:'ski'},
-        {name:'abhor',mountain:'rila',sport:'ski'},
-        {name:'abrasive',mountain:'rila',sport:'katerene'},
-        {name:'abrogate',mountain:'rila',sport:'katerene'},
-        {name:'absolution',mountain:'vitosha',sport:'katerene'},
-        {name:'abstain',mountain:'pirin',sport:'katerene'},
-        {name:'abstemious',mountain:'vitosha',sport:'ski'},
-        {name:'abstruse',mountain:'rila',sport:'ski'}]
+      let words = this.state.dataSet;
       this.setState({
-        suggestions: words.filter((word) => {return word.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.mountain.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.sport.toLowerCase().startsWith(input.target.value.toLowerCase())})
+        suggestions: words.filter((word) => {return word.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.regionId.mountainId.name.toLowerCase().startsWith(input.target.value.toLowerCase()) || word.sport.toLowerCase().startsWith(input.target.value.toLowerCase())})
       });
     }
   };
@@ -46,17 +48,32 @@ export class SearchBar extends Component {
       return (
         <span key={suggestion.name} className='search-bar-suggestions-item'>
          
-          <span><div  onClick={this.handleOnClick.bind(this,`${suggestion.name},${suggestion.mountain},${suggestion.sport}`)}>{suggestion.name},{suggestion.mountain},{suggestion.sport}</div></span>
+          <span><div  onClick={this.handleOnClick.bind(this,`${suggestion.name},${suggestion.regionId.mountainId.name},${suggestion.sport}`)}>{suggestion.name},{suggestion.regionId.mountainId.name},{suggestion.sport}</div></span>
         </span>
       );
     },this);
   };
 
-  onBlur = () => {
-    this.setState({suggestions: []});
+  handleSearch = () => {
+
+    let queryString = new URLSearchParams();
+    let params = {
+      id: this.state.searchId || 1,
+      type: this.state.searchType || 'mountain',
+      sport: this.state.searchSport || 'ski'
+    };
+    for (let key in params) {
+      queryString.append(key, params[key]);
+    }
+
+    fetch('http://173.212.226.173:8080/OutDoorSportBE/webresources/controller/search?' + queryString.toString())
+    .then((res)=>res.json())
+    .then((data)=>{
+      this.setState({results: data})
+    })
   }
-   handleOnClick=(newVal)=>{
-     
+
+  handleOnClick = newVal => {
       this.setState({
           searchTerm: newVal,
           suggestions: []
@@ -68,12 +85,7 @@ export class SearchBar extends Component {
         suggestions: []
     });
   }
-  changeSearchValue = () => {
-    this.setState({
-      searchTerm: suggestions.value.name
-    })
-  }
-  
+ 
   render() {
     return (
       <div className='container search-bar-container'>

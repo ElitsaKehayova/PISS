@@ -41,7 +41,8 @@
     "react-fontawesome": "^1.6.1",
     "react-google-maps": "^9.4.5",
     "react-router": "^4.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "react-select": "^1.2.1"
   },
   "scripts": {
     "build:prod": "webpack --env.prod -p",

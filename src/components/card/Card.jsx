@@ -25,6 +25,15 @@ export default class CardView extends React.Component {
       region: ''
     }
   }
+   componentDidMount(){
+    fetch('http://173.212.226.173:8080/OutDoorSportBE/webresources/controller/')
+    .then((res)=>res.json())
+    .then((data)=>{
+      this.setState({
+        dataSet:data
+      })
+    })
+  }
   render() {
     let data = this.props.data ? this.props.data : [{
       id:1,

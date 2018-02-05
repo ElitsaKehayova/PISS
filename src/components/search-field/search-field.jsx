@@ -21,7 +21,7 @@ export default class SearchField extends React.Component {
     return (
       <div className='search-field-container'>
         <div className='search-field-input'>
-          <SearchBar placeholder='Please enter mountain or region' searchHandler={this.props.searchHandler}/>
+          <SearchBar placeholder='Please enter mountain or region' searchHandler={this.props.searchHandler} sport={this.state.activeDropdownItem}/>
         </div>
         <div className='search-field-dropdown'>
           <DropdownButton

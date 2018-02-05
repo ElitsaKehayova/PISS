@@ -34,6 +34,7 @@
     "webpack-validator": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "basename": "^0.1.2",
     "bootstrap": "^3.3.7",
     "react": "^16.2.0",

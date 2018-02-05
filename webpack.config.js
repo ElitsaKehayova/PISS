@@ -38,7 +38,7 @@ module.exports = env => {
           }))
         },
         {
-          test: /\.svg$/,
+          test: /\.(svg|png)$/,
           loader: 'url-loader'
         }
       ]

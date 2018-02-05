@@ -1,5 +1,6 @@
 import React from 'react';
 import './SearchBar.scss';
+import axios from 'axios';
 
 export default class SearchBar extends React.Component {
   constructor(props) {
@@ -18,7 +19,10 @@ export default class SearchBar extends React.Component {
     if (input.target.value.length === 0 && this.state.suggestions.length > 0) {
       this.setState({ suggestions: [] });
     } else {
-      this.props.searchHandler(input.target.value);
+      let url = 'http://192.168.1.106:8080/OutDoorSportBE/webresources/controller/searchInfo?text=' + input.target.value + '&sport=' + (this.props.sport == 'Ски' ? 'ski' : 'climbing')
+      axios.get(url).then(data => {
+        this.setState({suggestions: data.data.map(item => item.suggestion)})
+      })
     }
   };
 
@@ -42,7 +46,7 @@ export default class SearchBar extends React.Component {
         <span key={suggestion + Math.random()}
           className='search-bar-suggestions-item'
           onClick={this.selectItem.bind(this, suggestion)}>
-          <span>{this.state.searchTerm}</span>
+          <span>{suggestion}</span>
         </span>
       );
     });
@@ -59,7 +63,7 @@ export default class SearchBar extends React.Component {
   }
 
   handleSearch = () => {
-    this.props.searchHandler(this.state.searchTerm);
+    this.props.searchHandler(this.state.searchTerm, this.props.sport);
   }
 
   clearSearch = () => {
